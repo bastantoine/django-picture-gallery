@@ -8,6 +8,9 @@ class Album(models.Model):
     description = models.TextField(blank=True, null=True)
     parent_album = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Picture(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
