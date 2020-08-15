@@ -15,6 +15,8 @@ from pathlib import Path
 from .private_settings import (
     SECRET_KEY,
     ADMINS,
+    MEDIA_URL,
+    MEDIA_ROOT,
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
