@@ -1,0 +1,18 @@
+{% extends 'viewer/index.html' %}
+{% block content %}
+<div class="row">
+    <div class="card-columns">
+        {% for album in albums %}
+            <div class="card" >
+                <img src="{{album.get_random_picture}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{album.name}}</h5>
+                    <p class="card-text">{{album.description}}</p>
+                    <a href="#" class="btn btn-primary">View</a>
+                </div>
+                <div class="card-footer">{{album.start_date|date:"DATE_FORMAT"}}{% if album.end_date %} - {{album.end_date|date:"DATE_FORMAT"}}{% endif %}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
