@@ -1,3 +1,11 @@
+# Python stuff
 **venv/*
-**/.vscode/*
 **/*.pyc
+**/__pycache__/*
+
+# Django stuff
+db.sqlite3
+picture_gallery/private_settings.py
+
+# Files created by VS Code
+**/.vscode/*
