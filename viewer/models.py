@@ -9,6 +9,7 @@ class Album(models.Model):
     end_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     parent_album = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    is_protected = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -30,3 +31,4 @@ class Album(models.Model):
 class Picture(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     path = models.ImageField()
+    is_protected = models.BooleanField(default=False)
