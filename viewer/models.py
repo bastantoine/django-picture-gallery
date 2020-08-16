@@ -27,6 +27,15 @@ class Album(models.Model):
         random_pic = Picture.objects.get(pk=random_pk)
         return random_pic.path.url
 
+    def save(self, *args, **kwargs):
+        """Overload of the default save method. Sets the protection flag of all
+        the pictures of the album to the same value of the flag of the album
+        """
+        for picture in self.get_pictures():
+            picture.is_protected = self.is_protected
+            picture.save()
+        super().save(*args, **kwargs)
+
 
 class Picture(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
