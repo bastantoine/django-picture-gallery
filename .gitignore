@@ -7,6 +7,8 @@ start.sh
 # Django stuff
 db.sqlite3
 picture_gallery/private_settings.py
+**/migrations/*
+media/*
 
 # Files created by VS Code
 **/.vscode/*
