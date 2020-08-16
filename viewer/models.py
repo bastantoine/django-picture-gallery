@@ -13,10 +13,15 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
+    def get_pictures(self):
+        """Get the pictures of the current album
+        """
+        return Picture.objects.filter(album__id=self.id)
+
     def get_random_picture(self):
         """Get one random picture from the album. Used as the thumbnail of the album when displaying the list of albums
         """
-        pks = Picture.objects.filter(album__id=self.id).values_list('pk', flat=True)
+        pks = self.get_pictures().values_list('pk', flat=True)
         random_pk = choice(pks)
         random_pic = Picture.objects.get(pk=random_pk)
         return random_pic.path.url
