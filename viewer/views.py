@@ -7,8 +7,12 @@ from .models import Album, Picture
 class HomeView(View):
 
     def get(self, request):
+        all_albums = Album.objects.all()
+        if not request.user.is_authenticated:
+            # User not authenticated -> show only the non protected albums
+            all_albums = all_albums.filter(is_protected=False)
         context = {
-            'albums': Album.objects.all(),
+            'albums': all_albums,
         }
         return render(request, 'viewer/home.html', context=context)
 
