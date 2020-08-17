@@ -9,5 +9,6 @@ app_name = 'viewer'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('album/<int:id_album>', AlbumView.as_view(), name='album')
+    path('album/<int:id_album>', AlbumView.as_view(), name='album'),
+    path('album/<uuid:uuid>', AlbumView.as_view(), name='album'),
 ]
