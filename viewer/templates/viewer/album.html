@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="card-columns">
-            {% for picture in list_pictures %}
+            {% for picture in album.get_pictures %}
                 <div class="card" >
                     <img src="{{picture.path.url}}" class="card-img-top">
                 </div>

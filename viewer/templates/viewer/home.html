@@ -10,7 +10,10 @@
                     <p class="card-text">{{album.description}}</p>
                     <a href="{% url "viewer:album" album.id %}" class="btn btn-primary">View</a>
                 </div>
-                <div class="card-footer">{{album.start_date|date:"DATE_FORMAT"}}{% if album.end_date %} - {{album.end_date|date:"DATE_FORMAT"}}{% endif %}</div>
+                <div class="card-footer">
+                    {{album.start_date|date:"DATE_FORMAT"}}{% if album.end_date %} - {{album.end_date|date:"DATE_FORMAT"}}{% endif %}
+                    {% if album.is_protected %}<span class="material-icons float-right">lock</span>{% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>
