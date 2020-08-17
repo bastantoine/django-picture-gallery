@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views import View
 
@@ -21,6 +22,9 @@ class AlbumView(View):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
+        if album.is_protected and not request.user.is_authenticated:
+            # User is not authenticated -> do not permit access
+            raise PermissionDenied
         context = {
             'album': album,
         }
