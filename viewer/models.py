@@ -1,4 +1,5 @@
 from random import choice
+import uuid
 
 from django.db import models
 
@@ -10,6 +11,7 @@ class Album(models.Model):
     description = models.TextField(blank=True, null=True)
     parent_album = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     is_protected = models.BooleanField(default=False)
+    uuid = models.UUIDField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +32,10 @@ class Album(models.Model):
         random_pk = choice(pks)
         random_pic = Picture.objects.get(pk=random_pk)
         return random_pic.path.url
+
+    def add_uuid(self):
+        if not self.uuid:
+            self.uuid = uuid.uuid4()
 
     def save(self, *args, **kwargs):
         """Overload of the default save method. Sets the protection flag of all
