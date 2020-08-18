@@ -36,6 +36,7 @@ class Album(models.Model):
     def add_uuid(self):
         if not self.uuid:
             self.uuid = uuid.uuid4()
+            self.save()
 
     def save(self, *args, **kwargs):
         """Overload of the default save method. Sets the protection flag of all
