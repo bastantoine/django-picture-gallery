@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'viewer.apps.ViewerConfig',
     'core.apps.CoreConfig',
+    'admin.apps.AdminConfig',
 ]
 
 MIDDLEWARE = [
