@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views import View
 
-from core.models import Album, Picture
+from apps.core.models import Album, Picture
 
 
 class HomeView(View):
