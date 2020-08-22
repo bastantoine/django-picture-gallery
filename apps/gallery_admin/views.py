@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
 from apps.core.models import Album
@@ -33,3 +33,12 @@ class AddAlbumView(View):
             'form': form,
         }
         return render(request, 'gallery_admin/add_album.html', context=context)
+
+
+class ToggleProtectionAlbumView(View):
+
+    def get(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        album.is_protected = not album.is_protected
+        album.save()
+        return redirect('gallery_admin:home')

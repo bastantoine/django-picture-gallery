@@ -19,6 +19,7 @@
                     <th>End date</th>
                     <th>Parent album</th>
                     <th>Protected</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,11 @@
                         <td>{{album.end_date|default:'-'}}</td>
                         <td>{{album.parent_album|default:'-'}}</td>
                         <td>{{album.is_protected|yesno:'Yes,No'}}</td>
+                        <td>
+                            <a href="{% url 'gallery_admin:toggle_protection_album' album.id %}">
+                                <span class="material-icons">{% if album.is_protected %}lock_open{% else %}lock{% endif %}</span>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
