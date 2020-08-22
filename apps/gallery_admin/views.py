@@ -19,12 +19,12 @@ class AddAlbumView(View):
 
     def get(self, request):
         context = {
-            'form': AlbumForm(),
+            'form': AlbumForm('gallery_admin:add_album', 'Create album', ),
         }
         return render(request, 'gallery_admin/add_album.html', context=context)
 
     def post(self, request):
-        form = AlbumForm(request.POST)
+        form = AlbumForm('gallery_admin:add_album', 'Create album', request.POST)
         if form.is_valid():
             album = Album(**form.cleaned_data)
             album.save()

@@ -11,12 +11,12 @@ class AlbumForm(ModelForm):
         model = Album
         fields = ['name', 'start_date', 'end_date', 'parent_album', 'description', 'is_protected']
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'post'
-        self.helper.form_action = 'gallery_admin:add_album'
+        self.helper.form_action = form_action
         self.helper.label_class = 'col-lg-2'
         self.helper.field_class = "col-lg-10"
-        self.helper.add_input(Submit('submit', 'Add album'))
+        self.helper.add_input(Submit('submit', submit_label))
