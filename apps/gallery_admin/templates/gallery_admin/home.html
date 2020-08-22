@@ -1,6 +1,13 @@
 {% extends 'default/index.html' %}
 {% block content %}
-<h3>All albums</h3>
+<div class="row">
+    <div class="col-lg-10">
+        <h3>All albums</h3>
+    </div>
+    <div class="col-lg-2">
+        <a href="{% url 'gallery_admin:add_album' %}" class="btn btn-primary" style="width: 100%;">Add an album</a>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12">
         <table class="table table-striped">
