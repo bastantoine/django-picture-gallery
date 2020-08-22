@@ -42,3 +42,11 @@ class ToggleProtectionAlbumView(View):
         album.is_protected = not album.is_protected
         album.save()
         return redirect('gallery_admin:home')
+
+
+class DeleteAlbumView(View):
+
+    def get(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        album.delete()
+        return redirect('gallery_admin:home')

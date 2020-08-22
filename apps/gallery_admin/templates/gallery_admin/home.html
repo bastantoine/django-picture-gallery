@@ -35,6 +35,7 @@
                             <a href="{% url 'gallery_admin:toggle_protection_album' album.id %}">
                                 <span class="material-icons">{% if album.is_protected %}lock_open{% else %}lock{% endif %}</span>
                             </a>
+                            <a href="{% url 'gallery_admin:delete_album' album.id %}"><span class="material-icons">delete</span></a>
                         </td>
                     </tr>
                 {% endfor %}
