@@ -66,3 +66,16 @@ class AlbumModelTestCase(TestCase):
         self.assertIsNone(self.album.uuid)
         self.album.add_uuid()
         self.assertEqual(self.album.uuid, '595c87a1-2617-4ea8-823b-5af00697d9e2')
+
+    def test_update(self):
+        old_album = Album.objects.get(pk=self.album.id)
+        self.assertEqual(old_album.id, self.album.id)
+        # Try to update the id -> it shouldn't work
+        self.album.update(id=self.album.id+1)
+        self.assertEqual(old_album.id, self.album.id)
+
+        new_name = 'My new album'
+        self.assertNotEqual(old_album.name, new_name)
+        self.album.update(name=new_name)
+        self.album.refresh_from_db()
+        self.assertEqual(self.album.name, new_name)
