@@ -1,4 +1,8 @@
 {% extends 'default/index.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'admin.css' %}">
+{% endblock css %}
 {% block content %}
 <div class="row">
     <div class="col-lg-10">
@@ -32,13 +36,24 @@
                         <td>{{album.parent_album|default:'-'}}</td>
                         <td>{{album.is_protected|yesno:'Yes,No'}}</td>
                         <td>
-                            <a href="{% url 'gallery_admin:toggle_protection_album' album.id %}">
-                                <span class="material-icons">{% if album.is_protected %}lock_open{% else %}lock{% endif %}</span>
-                            </a>
-                            <a href="{% url 'gallery_admin:delete_album' album.id %}"><span class="material-icons">delete</span></a>
-                            <a href="{% url 'gallery_admin:edit_album' album.id %}"><span class="material-icons">edit</span></a>
-                            <a href="{% url 'gallery_admin:share_link_album' album.id %}"><span class="material-icons">link</span></a>
-                            {% if album.uuid %}<a href="{% url 'gallery_admin:delete_link_album' album.id %}"><span class="material-icons">link_off</span></a>{% endif %}
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" href="#" id="dropdown_album_actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown_album_actions">
+                                    <a class="dropdown-item" href="{% url 'gallery_admin:toggle_protection_album' album.id %}">
+                                        {% if album.is_protected %}
+                                        <span class="material-icons dropdown-actions-item">lock_open</span> <span class="dropdown-actions-items">Unprotect</span>
+                                        {% else %}
+                                        <span class="material-icons dropdown-actions-item">lock</span> <span class="dropdown-actions-items">Protect</span>
+                                        {% endif %}
+                                    </a>
+                                    <a class="dropdown-item" href="{% url 'gallery_admin:delete_album' album.id %}"><span class="material-icons dropdown-actions-item">delete</span> <span class="dropdown-actions-items">Delete</span></a>
+                                    <a class="dropdown-item" href="{% url 'gallery_admin:edit_album' album.id %}"><span class="material-icons dropdown-actions-item">edit</span> <span class="dropdown-actions-items">Edit</span></a>
+                                    <a class="dropdown-item" href="{% url 'gallery_admin:share_link_album' album.id %}"><span class="material-icons dropdown-actions-item">link</span> <span class="dropdown-actions-items">Share link</span></a>
+                                    {% if album.uuid %}<a class="dropdown-item" href="{% url 'gallery_admin:delete_link_album' album.id %}"><span class="material-icons dropdown-actions-item">link_off</span> <span class="dropdown-actions-items">Delete link sharing</span></a>{% endif %}
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
