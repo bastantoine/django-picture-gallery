@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ClearableFileInput
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -31,6 +31,9 @@ class PictureForm(ModelForm):
     class Meta:
         model = Picture
         fields = '__all__'
+        widgets = {
+            'path': ClearableFileInput(attrs={'multiple': True}),
+        }
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)

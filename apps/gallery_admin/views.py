@@ -121,8 +121,9 @@ class AddPictureView(View):
     def post(self, request, id_album=None):
         form = PictureForm('gallery_admin:add_picture', 'Add picture', data=request.POST, files=request.FILES)
         if form.is_valid():
-            picture = Picture(**form.cleaned_data)
-            picture.save()
+            for file in request.FILES.getlist('path'):
+                picture = Picture(album=form.cleaned_data['album'], path=file)
+                picture.save()
             return redirect('gallery_admin:home')
         context = {
             'form': form,
