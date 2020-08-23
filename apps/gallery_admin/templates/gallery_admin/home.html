@@ -1,0 +1,32 @@
+{% extends 'default/index.html' %}
+{% block content %}
+<h3>All albums</h3>
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Parent album</th>
+                    <th>Protected</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for album in albums %}
+                    <tr>
+                        <td>{{album.id}}</td>
+                        <td>{{album.name}}</td>
+                        <td>{{album.start_date}}</td>
+                        <td>{{album.end_date|default:'-'}}</td>
+                        <td>{{album.parent_album|default:'-'}}</td>
+                        <td>{{album.is_protected|yesno:'Yes,No'}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
