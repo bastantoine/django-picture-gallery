@@ -117,3 +117,14 @@ class AddPictureView(View):
             'form': PictureForm('gallery_admin:add_picture', 'Add picture', instance=instance),
         }
         return render(request, 'gallery_admin/form.html', context=context)
+
+    def post(self, request, id_album=None):
+        form = PictureForm('gallery_admin:add_picture', 'Add picture', data=request.POST, files=request.FILES)
+        if form.is_valid():
+            picture = Picture(**form.cleaned_data)
+            picture.save()
+            return redirect('gallery_admin:home')
+        context = {
+            'form': form,
+        }
+        return render(request, 'gallery_admin/form.html', context=context)
