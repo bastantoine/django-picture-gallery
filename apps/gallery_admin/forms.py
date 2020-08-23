@@ -6,6 +6,17 @@ from crispy_forms.layout import Submit
 from apps.core.models import Album
 
 
+def form_helper(form_action, submit_label):
+    helper = FormHelper()
+    helper.form_class = 'form-horizontal'
+    helper.form_method = 'post'
+    helper.form_action = form_action
+    helper.label_class = 'col-lg-2'
+    helper.field_class = "col-lg-10"
+    helper.add_input(Submit('submit', submit_label))
+    return helper
+
+
 class AlbumForm(ModelForm):
     class Meta:
         model = Album
@@ -13,10 +24,4 @@ class AlbumForm(ModelForm):
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-        self.helper.form_method = 'post'
-        self.helper.form_action = form_action
-        self.helper.label_class = 'col-lg-2'
-        self.helper.field_class = "col-lg-10"
-        self.helper.add_input(Submit('submit', submit_label))
+        self.helper = form_helper(form_action, submit_label)
