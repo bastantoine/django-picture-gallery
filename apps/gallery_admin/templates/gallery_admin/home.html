@@ -55,6 +55,7 @@
                                     <a class="dropdown-item" href="{% url 'gallery_admin:edit_album' album.id %}"><span class="material-icons dropdown-actions-item">edit</span> <span class="dropdown-actions-items">Edit</span></a>
                                     <a class="dropdown-item" href="{% url 'gallery_admin:share_link_album' album.id %}"><span class="material-icons dropdown-actions-item">link</span> <span class="dropdown-actions-items">Share link</span></a>
                                     {% if album.uuid %}<a class="dropdown-item" href="{% url 'gallery_admin:delete_link_album' album.id %}"><span class="material-icons dropdown-actions-item">link_off</span> <span class="dropdown-actions-items">Delete link sharing</span></a>{% endif %}
+                                    <a class="dropdown-item" href="{% url 'gallery_admin:add_picture_from_album' album.id %}"><span class="material-icons dropdown-actions-item">add</span> <span class="dropdown-actions-items">Add pictures</span></a>
                                 </div>
                             </div>
                         </td>

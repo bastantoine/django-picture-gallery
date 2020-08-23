@@ -22,4 +22,5 @@ urlpatterns = [
     path('album/<int:id_album>/link/share', CreateUUIDView.as_view(), name='share_link_album'),
     path('album/<int:id_album>/link/delete', DeleteUUIDView.as_view(), name='delete_link_album'),
     path('picture/add', AddPictureView.as_view(), name='add_picture'),
+    path('picture/add/<int:id_album>', AddPictureView.as_view(), name='add_picture_from_album'),
 ]

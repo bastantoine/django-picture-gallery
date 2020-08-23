@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
-from apps.core.models import Album
+from apps.core.models import Album, Picture
 
 from .forms import AlbumForm, PictureForm
 
@@ -108,8 +108,12 @@ class DeleteUUIDView(View):
 
 class AddPictureView(View):
 
-    def get(self, request):
+    def get(self, request, id_album=None):
+        instance=None
+        if id_album:
+            album = get_object_or_404(Album, pk=id_album)
+            instance = Picture(album=album)
         context = {
-            'form': PictureForm('gallery_admin:add_picture', 'Add picture', ),
+            'form': PictureForm('gallery_admin:add_picture', 'Add picture', instance=instance),
         }
         return render(request, 'gallery_admin/form.html', context=context)
