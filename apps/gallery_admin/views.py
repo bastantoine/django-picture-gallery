@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views import View
 
 from apps.core.models import Album
@@ -21,7 +22,7 @@ class AddAlbumView(View):
         context = {
             'form': AlbumForm('gallery_admin:add_album', 'Create album', ),
         }
-        return render(request, 'gallery_admin/add_album.html', context=context)
+        return render(request, 'gallery_admin/form_album.html', context=context)
 
     def post(self, request):
         form = AlbumForm('gallery_admin:add_album', 'Create album', request.POST)
@@ -32,7 +33,7 @@ class AddAlbumView(View):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/add_album.html', context=context)
+        return render(request, 'gallery_admin/form_album.html', context=context)
 
 
 class ToggleProtectionAlbumView(View):
@@ -50,3 +51,32 @@ class DeleteAlbumView(View):
         album = get_object_or_404(Album, pk=id_album)
         album.delete()
         return redirect('gallery_admin:home')
+
+
+class EditAlbumView(View):
+
+    def get(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        context = {
+            'form': AlbumForm(
+                reverse('gallery_admin:edit_album', kwargs={'id_album':id_album}),
+                'Update album',
+                instance=album,
+            ),
+        }
+        return render(request, 'gallery_admin/form_album.html', context=context)
+
+    def post(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        form = AlbumForm(
+            reverse('gallery_admin:edit_album', kwargs={'id_album':id_album}),
+            'Update album',
+            data=request.POST,
+        )
+        if form.is_valid():
+            album.update(**form.cleaned_data)
+            return redirect('gallery_admin:home')
+        context = {
+            'form': form,
+        }
+        return render(request, 'gallery_admin/form_album.html', context=context)
