@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-from apps.core.models import Album
+from apps.core.models import Album, Picture
 
 
 def form_helper(form_action, submit_label):
@@ -21,6 +21,16 @@ class AlbumForm(ModelForm):
     class Meta:
         model = Album
         fields = ['name', 'start_date', 'end_date', 'parent_album', 'description', 'is_protected']
+
+    def __init__(self, form_action, submit_label, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = form_helper(form_action, submit_label)
+
+
+class PictureForm(ModelForm):
+    class Meta:
+        model = Picture
+        fields = '__all__'
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)
