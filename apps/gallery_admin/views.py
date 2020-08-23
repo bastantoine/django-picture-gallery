@@ -80,3 +80,27 @@ class EditAlbumView(View):
             'form': form,
         }
         return render(request, 'gallery_admin/form_album.html', context=context)
+
+
+class CreateUUIDView(View):
+
+    def get(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        album.add_uuid()
+        link = '{scheme}://{host}{path}'.format(
+            scheme=request.scheme,
+            host=request.get_host(),
+            path=reverse('viewer:album_uuid', kwargs={'uuid': album.uuid})
+        )
+        context = {
+            'link': link,
+        }
+        return render(request, 'gallery_admin/create_uuid.html', context=context)
+
+
+class DeleteUUIDView(View):
+
+    def get(self, request, id_album):
+        album = get_object_or_404(Album, pk=id_album)
+        album.update(uuid=None)
+        return redirect('gallery_admin:home')

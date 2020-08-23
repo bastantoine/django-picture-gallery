@@ -37,6 +37,8 @@
                             </a>
                             <a href="{% url 'gallery_admin:delete_album' album.id %}"><span class="material-icons">delete</span></a>
                             <a href="{% url 'gallery_admin:edit_album' album.id %}"><span class="material-icons">edit</span></a>
+                            <a href="{% url 'gallery_admin:share_link_album' album.id %}"><span class="material-icons">link</span></a>
+                            {% if album.uuid %}<a href="{% url 'gallery_admin:delete_link_album' album.id %}"><span class="material-icons">link_off</span></a>{% endif %}
                         </td>
                     </tr>
                 {% endfor %}
