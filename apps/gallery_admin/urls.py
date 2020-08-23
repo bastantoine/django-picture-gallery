@@ -8,6 +8,7 @@ from .views import (
     EditAlbumView,
     CreateUUIDView,
     DeleteUUIDView,
+    AddPictureView,
 )
 
 app_name = 'gallery_admin'
@@ -20,4 +21,5 @@ urlpatterns = [
     path('album/<int:id_album>/edit', EditAlbumView.as_view(), name='edit_album'),
     path('album/<int:id_album>/link/share', CreateUUIDView.as_view(), name='share_link_album'),
     path('album/<int:id_album>/link/delete', DeleteUUIDView.as_view(), name='delete_link_album'),
+    path('picture/add', AddPictureView.as_view(), name='add_picture'),
 ]

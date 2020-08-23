@@ -4,7 +4,7 @@ from django.views import View
 
 from apps.core.models import Album
 
-from .forms import AlbumForm
+from .forms import AlbumForm, PictureForm
 
 
 class HomeAdminView(View):
@@ -22,7 +22,7 @@ class AddAlbumView(View):
         context = {
             'form': AlbumForm('gallery_admin:add_album', 'Create album', ),
         }
-        return render(request, 'gallery_admin/form_album.html', context=context)
+        return render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request):
         form = AlbumForm('gallery_admin:add_album', 'Create album', request.POST)
@@ -33,7 +33,7 @@ class AddAlbumView(View):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form_album.html', context=context)
+        return render(request, 'gallery_admin/form.html', context=context)
 
 
 class ToggleProtectionAlbumView(View):
@@ -64,7 +64,7 @@ class EditAlbumView(View):
                 instance=album,
             ),
         }
-        return render(request, 'gallery_admin/form_album.html', context=context)
+        return render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -79,7 +79,7 @@ class EditAlbumView(View):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form_album.html', context=context)
+        return render(request, 'gallery_admin/form.html', context=context)
 
 
 class CreateUUIDView(View):
@@ -104,3 +104,12 @@ class DeleteUUIDView(View):
         album = get_object_or_404(Album, pk=id_album)
         album.update(uuid=None)
         return redirect('gallery_admin:home')
+
+
+class AddPictureView(View):
+
+    def get(self, request):
+        context = {
+            'form': PictureForm('gallery_admin:add_picture', 'Add picture', ),
+        }
+        return render(request, 'gallery_admin/form.html', context=context)

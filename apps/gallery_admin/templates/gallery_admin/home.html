@@ -5,11 +5,14 @@
 {% endblock css %}
 {% block content %}
 <div class="row">
-    <div class="col-lg-10">
+    <div class="col-lg-9">
         <h3>All albums</h3>
     </div>
-    <div class="col-lg-2">
-        <a href="{% url 'gallery_admin:add_album' %}" class="btn btn-primary" style="width: 100%;">Add an album</a>
+    <div class="col-lg-3">
+        <div class="btn-group" style="width: 100%;">
+            <a href="{% url 'gallery_admin:add_album' %}" class="btn btn-primary" >Add an album</a>
+            <a href="{% url 'gallery_admin:add_picture' %}" class="btn btn-primary" >Add pictures</a>
+        </div>
     </div>
 </div>
 <div class="row">
