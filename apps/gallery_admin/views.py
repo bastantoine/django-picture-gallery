@@ -8,7 +8,15 @@ from apps.core.models import Album, Picture
 from .forms import AlbumForm, PictureForm, LoginForm
 
 
-class HomeAdminView(View):
+class BaseProtectedView(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if not (request.user and request.user.is_authenticated):
+            return redirect('%s?next=%s' % (reverse('gallery_admin:login'), request.path))
+        return super(BaseProtectedView, self).dispatch(request, *args, **kwargs)
+
+
+class HomeAdminView(BaseProtectedView):
 
     def get(self, request):
         context = {
@@ -17,7 +25,7 @@ class HomeAdminView(View):
         return render(request, 'gallery_admin/home.html', context=context)
 
 
-class AddAlbumView(View):
+class AddAlbumView(BaseProtectedView):
 
     def get(self, request):
         context = {
@@ -37,7 +45,7 @@ class AddAlbumView(View):
         return render(request, 'gallery_admin/form.html', context=context)
 
 
-class ToggleProtectionAlbumView(View):
+class ToggleProtectionAlbumView(BaseProtectedView):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -46,7 +54,7 @@ class ToggleProtectionAlbumView(View):
         return redirect('gallery_admin:home')
 
 
-class DeleteAlbumView(View):
+class DeleteAlbumView(BaseProtectedView):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -54,7 +62,7 @@ class DeleteAlbumView(View):
         return redirect('gallery_admin:home')
 
 
-class EditAlbumView(View):
+class EditAlbumView(BaseProtectedView):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -83,7 +91,7 @@ class EditAlbumView(View):
         return render(request, 'gallery_admin/form.html', context=context)
 
 
-class CreateUUIDView(View):
+class CreateUUIDView(BaseProtectedView):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -99,7 +107,7 @@ class CreateUUIDView(View):
         return render(request, 'gallery_admin/create_uuid.html', context=context)
 
 
-class DeleteUUIDView(View):
+class DeleteUUIDView(BaseProtectedView):
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -107,7 +115,7 @@ class DeleteUUIDView(View):
         return redirect('gallery_admin:home')
 
 
-class AddPictureView(View):
+class AddPictureView(BaseProtectedView):
 
     def get(self, request, id_album=None):
         instance=None
