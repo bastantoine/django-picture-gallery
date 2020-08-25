@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
 from apps.core.models import Album, Picture
 
-from .forms import AlbumForm, PictureForm
+from .forms import AlbumForm, PictureForm, LoginForm
 
 
 class HomeAdminView(View):
@@ -129,3 +130,33 @@ class AddPictureView(View):
             'form': form,
         }
         return render(request, 'gallery_admin/form.html', context=context)
+
+
+class LoginView(View):
+
+    def get(self, request):
+        context = {
+            'form': LoginForm('gallery_admin:login', 'Login')
+        }
+        return render(request, 'gallery_admin/form.html', context=context)
+
+    def post(self, request):
+        form = LoginForm('gallery_admin:login', 'Login', data=request.POST)
+        if form.is_valid():
+            user = authenticate(request, **form.cleaned_data)
+            if user:
+                login(request, user)
+                if request.GET.get('next'):
+                    return redirect(request.GET.get('next'))
+                return redirect('gallery_admin:home')
+        context = {
+            'form': form,
+        }
+        return render(request, 'gallery_admin/form.html', context=context)
+
+
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect('viewer:home')

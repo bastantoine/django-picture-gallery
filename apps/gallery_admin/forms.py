@@ -1,4 +1,5 @@
-from django.forms import ModelForm, ClearableFileInput, DateInput
+from django.forms import Form, ModelForm, ClearableFileInput, DateInput, PasswordInput
+from django.forms.fields import CharField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -38,6 +39,15 @@ class PictureForm(ModelForm):
         widgets = {
             'path': ClearableFileInput(attrs={'multiple': True}),
         }
+
+    def __init__(self, form_action, submit_label, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = form_helper(form_action, submit_label)
+
+
+class LoginForm(Form):
+    username = CharField()
+    password = CharField(widget=PasswordInput)
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)
