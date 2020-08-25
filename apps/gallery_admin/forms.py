@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ClearableFileInput
+from django.forms import ModelForm, ClearableFileInput, DateInput
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -21,6 +21,10 @@ class AlbumForm(ModelForm):
     class Meta:
         model = Album
         fields = ['name', 'start_date', 'end_date', 'parent_album', 'description', 'is_protected']
+        widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
+        }
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
         super().__init__(*args, **kwargs)
