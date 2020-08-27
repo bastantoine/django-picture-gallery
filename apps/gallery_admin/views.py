@@ -140,6 +140,16 @@ class AddPictureView(BaseProtectedView):
         return render(request, 'gallery_admin/form.html', context=context)
 
 
+class DeletePictureView(BaseProtectedView):
+
+    def get(self, request, id_picture):
+        picture = get_object_or_404(Picture, pk=id_picture)
+        picture.delete()
+        if request.headers.get('referer'):
+            return redirect(request.headers.get('referer'))
+        return redirect('gallery_admin:home')
+
+
 class LoginView(View):
 
     def get(self, request):

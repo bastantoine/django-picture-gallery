@@ -11,6 +11,7 @@ from .views import (
     AddPictureView,
     LoginView,
     LogoutView,
+    DeletePictureView,
 )
 
 app_name = 'gallery_admin'
@@ -25,6 +26,7 @@ urlpatterns = [
     path('album/<int:id_album>/link/delete', DeleteUUIDView.as_view(), name='delete_link_album'),
     path('picture/add', AddPictureView.as_view(), name='add_picture'),
     path('picture/add/<int:id_album>', AddPictureView.as_view(), name='add_picture_from_album'),
+    path('picture/<int:id_picture>/delete', DeletePictureView.as_view(), name='delete_picture'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
 ]

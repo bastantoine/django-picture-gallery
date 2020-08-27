@@ -16,6 +16,11 @@
             {% for picture in album.get_pictures %}
                 <div class="card" >
                     <img src="{{picture.path.url}}" class="card-img-top">
+                    {% if request.user and request.user.is_authenticated %}
+                        <div class="card-footer">
+                            <a class="float-right" href="{% url 'gallery_admin:delete_picture' picture.id %}"><span class="material-icons">delete</span></a>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
