@@ -7,7 +7,7 @@ from django.core.files import File
 from django.test import TestCase
 from PIL import Image
 
-from viewer.models import Album, Picture
+from .models import Album, Picture
 
 
 class AlbumModelTestCase(TestCase):
@@ -47,7 +47,7 @@ class AlbumModelTestCase(TestCase):
                 for _ in range(3):
                     pic = Picture(album=self.album, path=self.get_image_file())
                     pic.save()
-            with mock.patch('viewer.models.choice', return_value=pic.id):
+            with mock.patch('apps.core.models.choice', return_value=pic.id):
                 self.assertEqual(self.album.get_random_picture(), pic.path.url)
 
     def test_save(self):
@@ -61,8 +61,21 @@ class AlbumModelTestCase(TestCase):
         for pic in self.album.get_pictures():
             self.assertTrue(pic.is_protected)
 
-    @mock.patch('viewer.models.uuid.uuid4', return_value='595c87a1-2617-4ea8-823b-5af00697d9e2')
+    @mock.patch('apps.core.models.uuid.uuid4', return_value='595c87a1-2617-4ea8-823b-5af00697d9e2')
     def test_add_uuid(self, _):
         self.assertIsNone(self.album.uuid)
         self.album.add_uuid()
         self.assertEqual(self.album.uuid, '595c87a1-2617-4ea8-823b-5af00697d9e2')
+
+    def test_update(self):
+        old_album = Album.objects.get(pk=self.album.id)
+        self.assertEqual(old_album.id, self.album.id)
+        # Try to update the id -> it shouldn't work
+        self.album.update(id=self.album.id+1)
+        self.assertEqual(old_album.id, self.album.id)
+
+        new_name = 'My new album'
+        self.assertNotEqual(old_album.name, new_name)
+        self.album.update(name=new_name)
+        self.album.refresh_from_db()
+        self.assertEqual(self.album.name, new_name)

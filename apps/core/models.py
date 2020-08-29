@@ -47,6 +47,15 @@ class Album(models.Model):
             picture.save()
         super().save(*args, **kwargs)
 
+    def update(self, **kwargs):
+        # Make sure we don't update the id
+        kwargs.pop('id', None)
+        kwargs.pop('pk', None)
+        for key, value in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+        self.save()
+
 
 class Picture(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)

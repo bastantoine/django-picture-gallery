@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'viewer.apps.ViewerConfig',
+    'crispy_forms',
+    'apps.viewer',
+    'apps.core',
+    'apps.gallery_admin',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,9 @@ ROOT_URLCONF = 'picture_gallery.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +76,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_FAIL_SILENTLY = not DEBUG
 
 WSGI_APPLICATION = 'picture_gallery.wsgi.application'
 

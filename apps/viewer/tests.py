@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from viewer.models import Album, Picture
+from apps.core.models import Album, Picture
 
 
 class ViewerViewsTestCase(TestCase):
