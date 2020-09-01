@@ -10,6 +10,7 @@ services:
       - "8000:8000"
     env_file:
       - ./django.prod.env
+      - ./gunicorn.prod.env
     depends_on:
       - db
 
