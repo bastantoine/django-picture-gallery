@@ -12,3 +12,7 @@ media/*
 
 # Files created by VS Code
 **/.vscode/*
+
+
+# Docker stuff
+django.dev.env

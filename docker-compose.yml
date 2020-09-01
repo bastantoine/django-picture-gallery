@@ -8,3 +8,5 @@ services:
       - .:/code
     ports:
       - "8080:8080"
+    env_file:
+      - ./django.dev.env
