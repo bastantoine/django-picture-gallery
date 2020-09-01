@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # From https://stackoverflow.com/questions/33992867/how-do-you-perform-django-database-migrations-when-using-docker-compose
 
