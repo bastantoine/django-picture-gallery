@@ -19,8 +19,16 @@ ENV HOME=/code
 RUN mkdir $HOME
 WORKDIR $HOME
 
+RUN addgroup -S webuser && adduser -S webuser -G webuser
+
 # Copy project code.
 COPY . $HOME
+
+# chown all the files to the app user
+RUN chown -R webuser:webuser $HOME
+
+# change to the webuser user
+USER webuser
 
 EXPOSE 8080
 
