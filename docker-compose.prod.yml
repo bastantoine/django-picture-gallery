@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: prod.dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./django.prod.env
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./db.prod.env
+
+volumes:
+  postgres_data:

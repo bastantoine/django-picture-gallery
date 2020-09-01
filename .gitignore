@@ -15,4 +15,4 @@ media/*
 
 
 # Docker stuff
-*.dev.env
+*.env
