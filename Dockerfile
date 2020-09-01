@@ -3,6 +3,11 @@ FROM python:3.8.5-alpine
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 
+# install psycopg2 dependencies
+# https://github.com/psycopg/psycopg2/issues/684
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
 COPY requirements.txt /
 
 # Install dependencies.
