@@ -15,4 +15,4 @@ media/*
 
 
 # Docker stuff
-django.dev.env
+*.dev.env
