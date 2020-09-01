@@ -15,11 +15,12 @@ RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
 
 # Set work directory.
-RUN mkdir /code
-WORKDIR /code
+ENV HOME=/code
+RUN mkdir $HOME
+WORKDIR $HOME
 
 # Copy project code.
-COPY . /code/
+COPY . $HOME
 
 EXPOSE 8080
 
