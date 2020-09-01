@@ -17,10 +17,6 @@ fi
 echo "Collect database migrations"
 python manage.py makemigrations
 
-# Apply database migrations for the viewer
-echo "Apply database migrations for the viewer"
-python manage.py makemigrations viewer
-
 # Apply database migrations
 echo "Apply database migrations"
 python manage.py migrate
