@@ -17,12 +17,18 @@ RUN pip install -r /requirements.txt
 # Set work directory.
 ENV HOME=/code
 RUN mkdir $HOME
-RUN mkdir $HOME/static
-RUN mkdir $HOME/media
 WORKDIR $HOME
+
+RUN addgroup -S webuser && adduser -S webuser -G webuser
 
 # Copy project code.
 COPY . $HOME
 
+# chown all the files to the app user
+RUN chown -R webuser:webuser $HOME
+
+# change to the webuser user
+USER webuser
+
 # Start the server when the image is launched
-ENTRYPOINT [ "./docker-entrypoint.sh" ]
+ENTRYPOINT [ "./docker/prod/docker-entrypoint.prod.sh" ]

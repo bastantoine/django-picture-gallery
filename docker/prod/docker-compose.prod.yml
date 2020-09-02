@@ -4,16 +4,16 @@ services:
   web:
     container_name: web
     build:
-      context: .
-      dockerfile: prod.dockerfile
+      context: ../../
+      dockerfile: ./docker/prod/prod.dockerfile
     expose:
       - 8000
     volumes:
       - static_volume:/code/static
       - media_volume:/code/media
     env_file:
-      - ./django.prod.env
-      - ./gunicorn.prod.env
+      - ./env/django.prod.env
+      - ./env/gunicorn.prod.env
     depends_on:
       - db
 
@@ -23,7 +23,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./db.prod.env
+      - ./env/db.prod.env
 
   nginx:
     build: ./nginx

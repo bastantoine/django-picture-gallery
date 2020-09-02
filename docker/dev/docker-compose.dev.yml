@@ -3,13 +3,15 @@ version: '3'
 services:
   web:
     container_name: web
-    build: .
+    build:
+      context: ../../
+      dockerfile: ./docker/dev/dev.dockerfile
     volumes:
-      - .:/code
+      - ../../.:/code
     ports:
       - "8080:8080"
     env_file:
-      - ./django.dev.env
+      - ./env/django.dev.env
     depends_on:
       - db
 
@@ -19,7 +21,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./db.dev.env
+      - ./env/db.dev.env
 
 volumes:
   postgres_data:
