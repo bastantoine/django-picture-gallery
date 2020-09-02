@@ -22,7 +22,5 @@ WORKDIR $HOME
 # Copy project code.
 COPY . $HOME
 
-EXPOSE 8080
-
 # Start the server when the image is launched
 ENTRYPOINT [ "./docker-entrypoint.sh" ]

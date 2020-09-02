@@ -30,7 +30,5 @@ RUN chown -R webuser:webuser $HOME
 # change to the webuser user
 USER webuser
 
-EXPOSE 8080
-
 # Start the server when the image is launched
 ENTRYPOINT [ "./docker-entrypoint.prod.sh" ]
