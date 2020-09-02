@@ -16,8 +16,6 @@ from pathlib import Path
 from .private_settings import (
     SECRET_KEY,
     ADMINS,
-    MEDIA_URL,
-    MEDIA_ROOT,
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -145,6 +143,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda _: DEBUG,
