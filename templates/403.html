@@ -1,0 +1,6 @@
+{% extends 'index.html' %}
+{% block content %}
+<h3>Error 403 - Permission denied</h3>
+You tried to access to a protected page or ressource<br/>
+Please <a href="{% url 'admin:login' %}">login</a> or go back to the <a href="{% url 'viewer:home' %}">home page</a>.
+{% endblock content %}
