@@ -8,6 +8,8 @@ services:
       dockerfile: prod.dockerfile
     expose:
       - 8000
+    volumes:
+      - static_volume:/code/static
     env_file:
       - ./django.prod.env
       - ./gunicorn.prod.env
@@ -26,8 +28,11 @@ services:
     build: ./nginx
     ports:
       - 1337:80
+    volumes:
+      - static_volume:/code/static
     depends_on:
       - web
 
 volumes:
   postgres_data:
+  static_volume:

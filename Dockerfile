@@ -17,6 +17,7 @@ RUN pip install -r /requirements.txt
 # Set work directory.
 ENV HOME=/code
 RUN mkdir $HOME
+RUN mkdir $HOME/static
 WORKDIR $HOME
 
 # Copy project code.
