@@ -9,8 +9,8 @@ services:
     expose:
       - 8000
     volumes:
-      - static_volume:/code/static
-      - media_volume:/code/media
+      - static_volume:/code/staticfiles
+      - media_volume:/code/mediafiles
     env_file:
       - ./env/django.prod.env
       - ./env/gunicorn.prod.env
@@ -30,8 +30,8 @@ services:
     ports:
       - 1337:80
     volumes:
-      - static_volume:/code/static
-      - media_volume:/code/media
+      - static_volume:/code/staticfiles
+      - media_volume:/code/mediafiles
     depends_on:
       - web
 

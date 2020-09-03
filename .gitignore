@@ -7,7 +7,7 @@ start.sh
 # Django stuff
 db.sqlite3
 **/migrations/*
-media/*
+media*/*
 
 # Files created by VS Code
 **/.vscode/*

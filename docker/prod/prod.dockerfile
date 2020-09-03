@@ -17,6 +17,8 @@ RUN pip install -r /requirements.txt
 # Set work directory.
 ENV HOME=/code
 RUN mkdir $HOME
+RUN mkdir $HOME/staticfiles
+RUN mkdir $HOME/mediafiles
 WORKDIR $HOME
 
 RUN addgroup -S webuser && adduser -S webuser -G webuser
