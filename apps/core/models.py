@@ -45,6 +45,9 @@ class Album(models.Model):
         for picture in self.get_pictures():
             picture.is_protected = self.is_protected
             picture.save()
+        for album in Album.objects.filter(parent_album__exact=self):
+            album.is_protected = self.is_protected
+            album.update()
         super().save(*args, **kwargs)
 
     def update(self, **kwargs):
