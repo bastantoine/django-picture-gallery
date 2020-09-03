@@ -12,6 +12,8 @@ media*/*
 # Files created by VS Code
 **/.vscode/*
 
-
 # Docker stuff
 *.env
+
+# Mac stuff
+**/.DS_Store
