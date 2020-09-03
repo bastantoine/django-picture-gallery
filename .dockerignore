@@ -1,4 +1,5 @@
 *venv*/
 docker/
+!docker/prod/docker-entrypoint.prod.sh
 .git/
 .vscode/
