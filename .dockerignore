@@ -1,0 +1,4 @@
+*venv*/
+docker/
+.git/
+.vscode/
