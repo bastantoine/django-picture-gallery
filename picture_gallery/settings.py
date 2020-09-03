@@ -78,6 +78,8 @@ TEMPLATES = [
     },
 ]
 
+PAGETITLE = os.environ.get('PAGETITLE', '')
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
 

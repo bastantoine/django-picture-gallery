@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block page_title %}{% endblock page_title %}</title>
+    <title>{% block page_title %}{{pagetitle}}{% endblock page_title %}{{base_pagetitle}}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap-4.5.2.min.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% block css %}{% endblock css %}

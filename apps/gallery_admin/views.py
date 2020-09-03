@@ -1,14 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.views import View
 
 from apps.core.models import Album, Picture
+from apps.lib.views import BaseView
 
 from .forms import AlbumForm, PictureForm, LoginForm
 
 
-class BaseProtectedView(View):
+class BaseProtectedView(BaseView):
 
     def dispatch(self, request, *args, **kwargs):
         if not (request.user and request.user.is_authenticated):
@@ -17,21 +17,23 @@ class BaseProtectedView(View):
 
 
 class HomeAdminView(BaseProtectedView):
+    pagetitle = 'Admin home'
 
     def get(self, request):
         context = {
             'albums': Album.objects.all(),
         }
-        return render(request, 'gallery_admin/home.html', context=context)
+        return self.render(request, 'gallery_admin/home.html', context=context)
 
 
 class AddAlbumView(BaseProtectedView):
+    pagetitle = 'Add an album'
 
     def get(self, request):
         context = {
             'form': AlbumForm('gallery_admin:add_album', 'Create album', ),
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request):
         form = AlbumForm('gallery_admin:add_album', 'Create album', request.POST)
@@ -42,7 +44,7 @@ class AddAlbumView(BaseProtectedView):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
 
 class ToggleProtectionAlbumView(BaseProtectedView):
@@ -63,6 +65,7 @@ class DeleteAlbumView(BaseProtectedView):
 
 
 class EditAlbumView(BaseProtectedView):
+    pagetitle = 'Edit an album'
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -73,7 +76,7 @@ class EditAlbumView(BaseProtectedView):
                 instance=album,
             ),
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -88,10 +91,11 @@ class EditAlbumView(BaseProtectedView):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
 
 class CreateUUIDView(BaseProtectedView):
+    pagetitle = 'Link created sucessfully'
 
     def get(self, request, id_album):
         album = get_object_or_404(Album, pk=id_album)
@@ -104,7 +108,7 @@ class CreateUUIDView(BaseProtectedView):
         context = {
             'link': link,
         }
-        return render(request, 'gallery_admin/create_uuid.html', context=context)
+        return self.render(request, 'gallery_admin/create_uuid.html', context=context)
 
 
 class DeleteUUIDView(BaseProtectedView):
@@ -116,6 +120,7 @@ class DeleteUUIDView(BaseProtectedView):
 
 
 class AddPictureView(BaseProtectedView):
+    pagetitle = 'Add pictures'
 
     def get(self, request, id_album=None):
         instance=None
@@ -125,7 +130,7 @@ class AddPictureView(BaseProtectedView):
         context = {
             'form': PictureForm('gallery_admin:add_picture', 'Add picture', instance=instance),
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request, id_album=None):
         form = PictureForm('gallery_admin:add_picture', 'Add picture', data=request.POST, files=request.FILES)
@@ -137,7 +142,7 @@ class AddPictureView(BaseProtectedView):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
 
 class DeletePictureView(BaseProtectedView):
@@ -150,13 +155,14 @@ class DeletePictureView(BaseProtectedView):
         return redirect('gallery_admin:home')
 
 
-class LoginView(View):
+class LoginView(BaseView):
+    pagetitle = 'Login'
 
     def get(self, request):
         context = {
             'form': LoginForm('gallery_admin:login', 'Login')
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request):
         form = LoginForm('gallery_admin:login', 'Login', data=request.POST)
@@ -170,10 +176,10 @@ class LoginView(View):
         context = {
             'form': form,
         }
-        return render(request, 'gallery_admin/form.html', context=context)
+        return self.render(request, 'gallery_admin/form.html', context=context)
 
 
-class LogoutView(View):
+class LogoutView(BaseView):
 
     def get(self, request):
         logout(request)

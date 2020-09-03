@@ -1,11 +1,12 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.views import View
 
 from apps.core.models import Album, Picture
+from apps.lib.views import BaseView
 
 
-class HomeView(View):
+class HomeView(BaseView):
+    pagetitle = 'Home'
 
     def get(self, request):
         all_albums = Album.objects.filter(parent_album__exact=None)
@@ -15,10 +16,10 @@ class HomeView(View):
         context = {
             'albums': all_albums,
         }
-        return render(request, 'viewer/home.html', context=context)
+        return self.render(request, 'viewer/home.html', context=context)
 
 
-class AlbumView(View):
+class AlbumView(BaseView):
 
     def get(self, request, id_album=None, uuid=None):
         params = {'pk': id_album} if id_album else {'uuid__exact': uuid}
@@ -26,9 +27,10 @@ class AlbumView(View):
         if id_album and album.is_protected and not request.user.is_authenticated:
             # User is not authenticated and tried to access to the album using it's id -> do not permit access
             raise PermissionDenied
+        self.pagetitle = album.name
         child_albums = Album.objects.filter(parent_album__exact=album)
         context = {
             'album': album,
             'child_albums': child_albums,
         }
-        return render(request, 'viewer/album.html', context=context)
+        return self.render(request, 'viewer/album.html', context=context)

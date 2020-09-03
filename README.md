@@ -32,10 +32,11 @@ Then update the values if needed:
   - `SQL_USER`: Same value as `POSTGRES_USER`
   - `SQL_PASSWORD`: Same value as `POSTGRES_PASSWORD`
   - `SQL_HOST`: Leave it to `db` if you are using the Postgres container
-  - `SQL_PORT`: Leave it to `5432` if you haven't changed the mapping of the ports in the `docker-compose.prod.yml` **file**
+  - `SQL_PORT`: Leave it to `5432` if you haven't changed the mapping of the ports in the `docker-compose.prod.yml` file
   - `DATABASE`: Leave it to `postgres` if you are using the Postgres container, this way gunicorn will wait for the PG db to be up to start
   - `DEBUG`: Leave it to `0`
   - `SECRET_KEY`: The secret key of Django
+  - `PAGETITLE`: The base title page to use as tab names
 - `gunicorn.prod.env`:
   - `ACCESS_LOG`: The `.log` file to use for the access logs of gunicorn
   - `ERROR_LOG`: The `.log` file to use for the error logs of gunicorn
