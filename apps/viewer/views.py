@@ -8,7 +8,7 @@ from apps.core.models import Album, Picture
 class HomeView(View):
 
     def get(self, request):
-        all_albums = Album.objects.all()
+        all_albums = Album.objects.filter(parent_album__exact=None)
         if not request.user.is_authenticated:
             # User not authenticated -> show only the non protected albums
             all_albums = all_albums.filter(is_protected=False)
