@@ -3,18 +3,7 @@
 <div class="row">
     <div class="card-columns">
         {% for album in albums %}
-            <div class="card" >
-                <img src="{{album.get_random_picture}}" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">{{album.name}}</h5>
-                    <p class="card-text">{{album.description}}</p>
-                    <a href="{% url "viewer:album_id" album.id %}" class="btn btn-primary">View</a>
-                </div>
-                <div class="card-footer">
-                    {{album.start_date|date:"DATE_FORMAT"}}{% if album.end_date %} - {{album.end_date|date:"DATE_FORMAT"}}{% endif %}
-                    {% if album.is_protected %}<span class="material-icons float-right">lock</span>{% endif %}
-                </div>
-            </div>
+            {% include 'viewer/album_card.html' with album=album %}
         {% endfor %}
     </div>
 </div>

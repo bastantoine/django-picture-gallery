@@ -26,7 +26,9 @@ class AlbumView(View):
         if id_album and album.is_protected and not request.user.is_authenticated:
             # User is not authenticated and tried to access to the album using it's id -> do not permit access
             raise PermissionDenied
+        child_albums = Album.objects.filter(parent_album__exact=album)
         context = {
             'album': album,
+            'child_albums': child_albums,
         }
         return render(request, 'viewer/album.html', context=context)

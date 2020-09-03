@@ -39,6 +39,13 @@
     </div>
     <div class="row">
         <div class="card-columns">
+            {% for album in child_albums %}
+                {% include 'viewer/album_card.html' with album=album %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-columns">
             {% for picture in album.get_pictures %}
                 <div class="card" >
                     <img src="{{picture.path.url}}" class="card-img-top">
