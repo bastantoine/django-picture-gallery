@@ -1,10 +1,11 @@
 {% extends 'index.html' %}
 {% load static %}
-{% if request.user and request.user.is_authenticated %}
-    {% block css %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'simple-lightbox.css' %}">
+    {% if request.user and request.user.is_authenticated %}
         <link rel="stylesheet" href="{% static 'admin.css' %}">
-    {% endblock css %}
-{% endif %}
+    {% endif %}
+{% endblock css %}
 {% block content %}
 <div class="container">
     <div class="row my-4">
@@ -45,10 +46,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="card-columns">
+        <div class="card-columns gallery">
             {% for picture in album.get_pictures %}
                 <div class="card" >
-                    <img src="{{picture.path.url}}" class="card-img-top">
+                    <a href="{{picture.path.url}}" class="image"><img src="{{picture.path.url}}" class="card-img-top"></a>
                     {% if request.user and request.user.is_authenticated %}
                         <div class="card-footer">
                             <a class="float-right" href="{% url 'gallery_admin:delete_picture' picture.id %}"><span class="material-icons">delete</span></a>
@@ -60,3 +61,9 @@
     </div>
 </div>
 {% endblock content %}
+{% block scripts %}
+    <script src="{% static 'simple-lightbox.js' %}"></script>
+    <script>
+        new SimpleLightbox('div.gallery a.image', {});
+    </script>
+{% endblock scripts %}
