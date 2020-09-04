@@ -3,7 +3,7 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/simple-lightbox.css' %}">
     {% if request.user and request.user.is_authenticated %}
-        <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+        <link rel="stylesheet" href="{% static 'gallery_admin/css/admin.css' %}">
     {% endif %}
 {% endblock css %}
 {% block content %}
@@ -85,7 +85,7 @@
 </div>
 {% endblock content %}
 {% block scripts %}
-    <script src="{% static 'js/simple-lightbox.js' %}"></script>
+    <script src="{% static 'viewer/js/simple-lightbox.js' %}"></script>
     <script>
         new SimpleLightbox('div.gallery a.image', {});
     </script>
