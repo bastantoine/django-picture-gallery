@@ -7,13 +7,15 @@ from crispy_forms.layout import Submit
 from apps.core.models import Album, Picture
 
 
-def form_helper(form_action, submit_label):
+def form_helper(form_action, submit_label, form_id=None):
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.form_method = 'post'
     helper.form_action = form_action
     helper.label_class = 'col-lg-2'
     helper.field_class = "col-lg-10"
+    if form_id:
+        helper.form_id = form_id
     helper.add_input(Submit('submit', submit_label))
     return helper
 
@@ -28,8 +30,9 @@ class AlbumForm(ModelForm):
         }
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
+        form_id = kwargs.pop('form_id', None)
         super().__init__(*args, **kwargs)
-        self.helper = form_helper(form_action, submit_label)
+        self.helper = form_helper(form_action, submit_label, form_id=form_id)
 
 
 class PictureForm(ModelForm):
@@ -41,8 +44,9 @@ class PictureForm(ModelForm):
         }
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
+        form_id = kwargs.pop('form_id', None)
         super().__init__(*args, **kwargs)
-        self.helper = form_helper(form_action, submit_label)
+        self.helper = form_helper(form_action, submit_label, form_id=form_id)
 
 
 class LoginForm(Form):
@@ -50,5 +54,6 @@ class LoginForm(Form):
     password = CharField(widget=PasswordInput)
 
     def __init__(self, form_action, submit_label, *args, **kwargs):
+        form_id = kwargs.pop('form_id', None)
         super().__init__(*args, **kwargs)
-        self.helper = form_helper(form_action, submit_label)
+        self.helper = form_helper(form_action, submit_label, form_id=form_id)
