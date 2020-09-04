@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404
 
-from apps.core.models import Album, Picture
+from apps.core.models import Album
 from apps.lib.views import BaseView
 
 
