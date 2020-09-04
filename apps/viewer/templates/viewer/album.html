@@ -47,7 +47,7 @@
     </div>
     <div class="row">
         <div class="card-columns gallery">
-            {% for picture in album.get_pictures %}
+            {% for picture in page %}
                 <div class="card" >
                     <a href="{{picture.path.url}}" class="image"><img src="{{picture.path.url}}" class="card-img-top"></a>
                     {% if request.user and request.user.is_authenticated %}
@@ -58,6 +58,29 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
+    <div class="picture-pagination">
+        <ul class="pagination justify-content-center">
+            {% if page.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
+            <li class="page-item disabled">
+                <a href="#" class="page-link">Page {{ page.number }} of {{ page.paginator.num_pages }}</a>
+            </li>
+            {% if page.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.next_page_number }}">&gt;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.paginator.num_pages }}">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 {% endblock content %}
