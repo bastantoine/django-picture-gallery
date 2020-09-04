@@ -128,12 +128,23 @@ class AddPictureView(BaseProtectedView):
             album = get_object_or_404(Album, pk=id_album)
             instance = Picture(album=album)
         context = {
-            'form': PictureForm('gallery_admin:add_picture', 'Add picture', instance=instance),
+            'form': PictureForm(
+                'gallery_admin:add_picture',
+                'Add picture',
+                instance=instance,
+                form_id='form_upload_picture',
+            ),
         }
         return self.render(request, 'gallery_admin/form.html', context=context)
 
     def post(self, request, id_album=None):
-        form = PictureForm('gallery_admin:add_picture', 'Add picture', data=request.POST, files=request.FILES)
+        form = PictureForm(
+            'gallery_admin:add_picture',
+            'Add picture',
+            data=request.POST,
+            files=request.FILES,
+            form_id='form_upload_picture',
+        )
         if form.is_valid():
             for file in request.FILES.getlist('path'):
                 picture = Picture(album=form.cleaned_data['album'], path=file)
