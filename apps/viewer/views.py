@@ -30,7 +30,7 @@ class AlbumView(BaseView):
             raise PermissionDenied
         self.pagetitle = album.name
         child_albums = Album.objects.filter(parent_album__exact=album)
-        paginator = Paginator(album.get_pictures(), 50)
+        paginator = Paginator(album.get_pictures(), request.GET.get('per-page', 50))
         page = paginator.get_page(request.GET.get('page', 1))
         context = {
             'album': album,
